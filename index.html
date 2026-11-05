@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cake MOOD | O sabor do seu momento</title>
+<style>
+:root{--v:#6d1020;--v2:#8b1a2e;--c:#fbf4ee;--r:#f1d9d4;--t:#2a1216}
+*{box-sizing:border-box}body{margin:0;background:var(--c);color:var(--t);font-family:Georgia,serif;line-height:1.6}
+img{max-width:100%;display:block}a{color:inherit}.wrap{width:min(1100px,92%);margin:0 auto}
+section{padding:56px 0}h2.sec{font-size:32px;margin:0 0 8px;text-align:center;color:var(--v)}p.sub{text-align:center;margin:0 auto 32px;max-width:55ch}
+.topo{background:var(--v);color:var(--c);min-height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;position:sticky;top:0;z-index:20}
+.topo h1{margin:0;font-size:28px;position:absolute;left:0;right:0;text-align:center;pointer-events:none}
+.topo .dir{display:flex;gap:16px;align-items:center;position:relative}.topo .dir a{font-size:17px;text-decoration:none}
+.btn-i{background:var(--c);color:var(--v);border:0;border-radius:10px;height:38px;min-width:42px;font-size:17px;cursor:pointer;padding:0 10px;position:relative}
+.btn{display:inline-block;background:var(--v);color:var(--c);border:0;border-radius:10px;padding:11px 20px;font:inherit;cursor:pointer;text-decoration:none}
+.btn.claro{background:var(--c);color:var(--v)}.btn:hover,.btn-i:hover{filter:brightness(1.1)}
+:focus-visible{outline:3px solid #e8a0a8;outline-offset:2px}
+.hero{background:var(--v);color:var(--c);border-radius:20px;margin-top:30px;padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.hero h2{font-size:42px;line-height:1.15;margin:0 0 14px}.hero p{font-size:18px;margin:0 0 22px}.hero img{border-radius:16px;object-fit:cover;height:280px;width:100%}
+.grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
+.card{background:#fff;border-radius:16px;overflow:hidden;border:1px solid var(--r);display:flex;flex-direction:column}
+.card img{height:220px;width:100%;object-fit:cover}.card .info{padding:16px;display:flex;flex-direction:column;gap:7px;flex:1}
+.card h3{margin:0;font-size:23px;color:var(--v)}.card p{margin:0;font-size:15px;flex:1}
+.linha{display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:10px}.preco{font-size:19px;font-weight:bold}
+.passos{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}.passo{background:var(--r);border-radius:16px;padding:22px}.passo b{color:var(--v);font-size:20px}
+footer{background:var(--v);color:var(--c);text-align:center;padding:28px 20px}footer p{margin:4px 0}
+.gaveta{position:fixed;top:0;bottom:0;left:0;width:min(390px,94%);background:var(--c);transform:translateX(-105%);transition:transform .25s;z-index:40;padding:24px;overflow:auto;display:flex;flex-direction:column;gap:14px}
+.gaveta.dir{left:auto;right:0;transform:translateX(105%)}.gaveta.aberta{transform:none}
+.veu{position:fixed;inset:0;background:#0007;opacity:0;pointer-events:none;transition:opacity .25s;z-index:30}.veu.on{opacity:1;pointer-events:auto}
+.item{display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid var(--r);padding:10px 0}
+.qtd button{width:30px;height:30px;border-radius:50%;border:1px solid var(--v);background:#fff;cursor:pointer}
+.badge{position:absolute;top:-8px;right:-8px;background:#e0263f;color:#fff;border-radius:50%;font-size:12px;min-width:20px;height:20px;line-height:20px;text-align:center}
+input{font:inherit;padding:11px 12px;border:2px solid var(--r);border-radius:10px;background:#fff;width:100%}
+.muted{font-size:13px;color:#6c5559}.hidden{display:none!important}
+@media(max-width:760px){.hero{grid-template-columns:1fr;padding:24px}.hero h2{font-size:32px}.topo h1{font-size:20px}.topo .dir a.lk{display:none}}
+</style>
+</head>
+<body>
+<header class="topo">
+  <a class="btn-i" href="#inicio" aria-label="Início">⌂</a><h1>CAKE MOOD</h1>
+  <div class="dir"><a class="lk" href="#produtos">Produtos</a><a href="login.html" id="login-link">Entrar</a>
+  <button class="btn-i" id="open-cart" aria-label="Abrir carrinho">🛒<span class="badge" id="badge">0</span></button></div>
+</header>
+<div class="veu" id="veil"></div>
+<aside class="gaveta dir" id="cart-panel" aria-label="Carrinho">
+  <button class="btn-i" id="close-cart" aria-label="Fechar">✕</button>
+  <h2 style="margin:0;color:var(--v)">Seu carrinho</h2>
+  <div id="cart-items"></div><div id="cart-total" class="preco"></div>
+  <form id="checkout-form">
+    <label for="guest-name">Seu nome (obrigatório para visitantes)</label>
+    <input id="guest-name" name="name" placeholder="Nome completo" autocomplete="name">
+    <p class="muted" id="customer-note">Se estiver conectado, usaremos o nome da sua conta. Você também pode comprar sem login.</p>
+    <button class="btn" id="place-order" type="submit">Confirmar pedido</button>
+  </form>
+  <button class="btn" id="clear-cart" type="button">Esvaziar carrinho</button>
+  <p class="muted" id="checkout-status" role="status"></p>
+</aside>
+<main id="inicio">
+  <div class="wrap"><div class="hero">
+    <div><h2>O sabor do seu momento!</h2><p>Dois sabores, feitos com carinho: Oreo e bolo de cenoura com cobertura de chocolate.</p><a class="btn claro" href="#produtos">Ver os bolos</a></div>
+    <img src="https://www.receiteria.com.br/wp-content/uploads/bolo-de-oreo.jpg" alt="Bolo de Oreo">
+  </div></div>
+  <section id="produtos"><div class="wrap"><h2 class="sec">Nossos sabores</h2><p class="sub">Escolha seu sabor. Cada pedaço custa R$ 10,00.</p><div class="grade" id="catalog"></div></div></section>
+  <section style="background:#fff"><div class="wrap"><h2 class="sec">Como pedir</h2><p class="sub">Do carrinho à sua mesa em três passos.</p>
+    <div class="passos"><div class="passo"><b>1. Escolha</b><p>Adicione ao carrinho a quantidade de pedaços desejada.</p></div><div class="passo"><b>2. Confirme</b><p>Entre na sua conta ou informe seu nome para comprar sem login.</p></div><div class="passo"><b>3. Aguarde</b><p>A loja receberá seu pedido e entrará em contato para combinar os detalhes.</p></div></div>
+  </div></section>
+</main>
+<footer><p>Cake MOOD, o sabor do seu momento.</p><p>Pedidos enviados para a equipe da loja.</p><p>&copy; <span id="year"></span> Cake MOOD.</p></footer>
+<script type="module" src="app.js"></script>
+</body></html>
