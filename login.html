@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Entrar | Cake MOOD</title>
+<style>
+:root{--v:#6d1020;--c:#fbf4ee;--r:#f1d9d4;--t:#2a1216}*{box-sizing:border-box}body{margin:0;background:var(--c);color:var(--t);font-family:Georgia,serif;min-height:100vh;display:grid;place-items:center;padding:20px}
+.panel{background:#fff;border:1px solid var(--r);border-radius:18px;padding:28px;width:min(440px,100%)}h1{color:var(--v);margin-top:0}label{display:block;margin:12px 0 5px}input{width:100%;padding:12px;border:2px solid var(--r);border-radius:9px;font:inherit}
+button,.btn{display:block;width:100%;margin-top:14px;padding:12px;border:0;border-radius:9px;background:var(--v);color:white;font:inherit;cursor:pointer;text-align:center;text-decoration:none}
+.alt{background:#f1d9d4;color:var(--v)}.muted{font-size:13px;color:#6c5559}#status{white-space:pre-wrap}
+</style></head><body><main class="panel">
+<a href="index.html">← Voltar à loja</a><h1>Cake MOOD</h1><h2 id="heading">Entrar na sua conta</h2>
+<form id="auth-form"><label for="email">E-mail</label><input id="email" type="email" autocomplete="email" required>
+<label for="password">Senha</label><input id="password" type="password" minlength="8" autocomplete="current-password" required>
+<button id="submit" type="submit">Entrar</button></form>
+<button class="alt" id="toggle" type="button">Criar uma conta</button>
+<button class="alt" id="reset" type="button">Esqueci minha senha</button>
+<p class="muted" id="status" role="status"></p></main><script type="module" src="auth.js"></script></body></html>
